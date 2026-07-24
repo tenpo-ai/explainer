@@ -76,7 +76,7 @@ flowchart LR
         M2["Lost checkouts"]
     end
     subgraph OPS["🛟 Support"]
-        O1['"Where is my order?" floods']
+        O1["'Where is my order?' floods"]
         O2["Tickets rotting in queue"]
     end
     style INV fill:#eef2ff,stroke:#315efb
