@@ -79,11 +79,11 @@ flowchart LR
         O1["'Where is my order?' floods"]
         O2["Tickets rotting in queue"]
     end
-    style INV fill:#eef2ff,stroke:#315efb
-    style CUS fill:#f0fdf4,stroke:#16a34a
-    style FIN fill:#fef2f2,stroke:#dc2626
-    style MKT fill:#fdf4ff,stroke:#a21caf
-    style OPS fill:#fff7ed,stroke:#ea580c
+    style INV fill:#eef2ff,stroke:#315efb,color:#111
+    style CUS fill:#f0fdf4,stroke:#16a34a,color:#111
+    style FIN fill:#fef2f2,stroke:#dc2626,color:#111
+    style MKT fill:#fdf4ff,stroke:#a21caf,color:#111
+    style OPS fill:#fff7ed,stroke:#ea580c,color:#111
 ```
 
 ---
