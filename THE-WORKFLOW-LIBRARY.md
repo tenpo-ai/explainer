@@ -167,13 +167,24 @@ Each workflow is a typed **template** carrying a concrete, pre-validated **plan*
 
 ---
 
-## Sources
+## Where these problems come from — real merchant voices
 
-This library was distilled from Tenpo's own merchant-problem research and codified into a typed, one-click-enable catalog. Everything here traces to:
+This library wasn't guessed. It was drawn from what merchants say out loud, in their own communities. A sample of the threads behind the pains above (each links to the discussion, and to the workflow it motivated):
 
-- **`skills/tenpo-workflows/SKILL.md`** — the original research: the merchant pain-points, the "aha moment", and the competitor comparison table reproduced above.
-- **`src/tenpo/automation/templates.ts`** — the `WORKFLOW_TEMPLATES` registry: the 22 templates with their category, merchant-facing description, dollar-impact line, required integrations/capabilities, and default approval posture.
-- **`src/tenpo/automation/templates-data.ts`**, **`templates-data-ops.ts`**, **`templates-data-cx.ts`** — the concrete `AutomationPlan` bodies (trigger → steps → action) behind each template.
-- **`src/tenpo/automation/validate-plan.ts`** — the validator every template plan passes clean before it can ship.
+- **"Chargebacks are broken and merchants are paying the price."** — r/shopify, 390+ comments. A merchant-and-community pile-on about losing disputes and eating the fees. → _Refund / chargeback alert_
+  [reddit.com/r/shopify — We Need to Talk About Chargebacks](https://www.reddit.com/r/shopify/comments/1okb701/we_need_to_talk_about_chargebacks_this_system_is/)
 
-_Twenty-two workflows live today. The research table lists a few more merchant pains not yet built — the backlog is the roadmap._
+- **"Running a small ecommerce business right now feels way heavier than it looks."** — r/ecommerce, 250+ comments. The exact overwhelm this whole library exists for: too many small things to watch at once. → _the entire thesis_
+  [reddit.com/r/ecommerce — feels way heavier than it looks](https://www.reddit.com/r/ecommerce/comments/1tqdrhc/running_a_small_ecommerce_business_right_now/)
+
+- **Stockouts quietly cost real revenue, and merchants can't see it coming.** → _Low stock alert · Stockout imminent · Low stock reorder_
+  [reddit.com/r/shopify — Looking for inventory forecasting](https://www.reddit.com/r/shopify/comments/1uin6px/looking_for_inventory_forecasting_for_shopify/) · [reddit.com/r/shopify — lost sales from out-of-stock](https://www.reddit.com/r/shopify/comments/17ufqv3/how_to_see_lost_sales_potential_due_to_out_of/)
+
+- **"Sales just… stopped. I'm struggling to figure out why."** — r/smallbusiness. The no-pulse problem: something changed and the owner found out too late. → _Weekly P&L summary · Negative margin alert_
+  [reddit.com/r/smallbusiness — Sales just stopped](https://www.reddit.com/r/smallbusiness/comments/1cczx8y/sales_just_stopped_im_struggling_to_figure_out_why/)
+
+_Communities the pains were drawn from: **r/ecommerce, r/shopify, r/smallbusiness, r/AmazonSeller, r/FulfillmentByAmazon**. The threads above are representative anchors, not one per workflow — the same recurring complaints (dead stock, WISMO floods, abandoned carts, lapsed VIPs, over-mailing) surface across these subs constantly._
+
+---
+
+_Twenty-two workflows live today, each codified as a typed, one-click-enable template that validates its trigger and action before it can run. The backlog of merchant pains not yet built is the roadmap._
