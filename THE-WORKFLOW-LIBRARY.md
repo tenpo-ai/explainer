@@ -169,21 +169,33 @@ Each workflow is a typed **template** carrying a concrete, pre-validated **plan*
 
 ## Where these problems come from — real merchant voices
 
-This library wasn't guessed. It was drawn from what merchants say out loud, in their own communities. A sample of the threads behind the pains above (each links to the discussion, and to the workflow it motivated):
+This library wasn't guessed. It was drawn from what merchants say out loud, in their own communities. Every link below is a real thread.
 
-- **"Chargebacks are broken and merchants are paying the price."** — r/shopify, 390+ comments. A merchant-and-community pile-on about losing disputes and eating the fees. → _Refund / chargeback alert_
+### The core pain — fragmentation, data chaos & manual ops
+
+The reason a workflow layer has to exist at all: the owner is the only thing connecting a dozen disconnected tools, by hand, at the end of the day.
+
+- **"Manual ops in Shopify are killing my time."** — r/smallbusiness. Not growth, not ads — _ops_: orders coming from Instagram DMs, fulfillment updates that don't sync.
+  [reddit.com/r/smallbusiness](https://www.reddit.com/r/smallbusiness/comments/1pmt2in/manual_ops_in_shopify_are_killing_my_time/)
+- **"Anyone else drowning in data but still making terrible decisions?"** — r/ecommerce, 60+ comments. Data from everywhere, more confused than ever, can't tell which products actually work — gut decisions half the time.
+  [reddit.com/r/ecommerce](https://www.reddit.com/r/ecommerce/comments/1obhtt6/anyone_else_drowning_in_data_but_still_making/)
+- **"Is it just me or is ecommerce basically data chaos?"** — r/SaaS. Operators juggling Shopify metrics, a GA4 that never matches anything, paid-ads dashboards, email metrics, inventory, returning-customer numbers, and attribution from five tools.
+  [reddit.com/r/SaaS](https://www.reddit.com/r/SaaS/comments/1pj4ucy/is_it_just_me_or_is_ecommerce_basically_data_chaos/)
+- **"Am I the only one who spends more time pulling data than actually analyzing it?"** — r/shopify, 29 comments. Jumping between four tabs, four data models, four definitions of "conversion" — by the time it's assembled, the insight is already stale.
+  [reddit.com/r/shopify](https://www.reddit.com/r/shopify/comments/1sme03t/am_i_the_only_one_who_spends_more_time_pulling/)
+- **"Running a small ecommerce business right now feels way heavier than it looks."** — r/ecommerce, 250+ comments. The exact overwhelm this library exists for.
+  [reddit.com/r/ecommerce](https://www.reddit.com/r/ecommerce/comments/1tqdrhc/running_a_small_ecommerce_business_right_now/)
+
+### The specific pains each workflow closes
+
+- **Chargebacks are broken and merchants eat the cost** — r/shopify, 390+ comments. → _Refund / chargeback alert_
   [reddit.com/r/shopify — We Need to Talk About Chargebacks](https://www.reddit.com/r/shopify/comments/1okb701/we_need_to_talk_about_chargebacks_this_system_is/)
-
-- **"Running a small ecommerce business right now feels way heavier than it looks."** — r/ecommerce, 250+ comments. The exact overwhelm this whole library exists for: too many small things to watch at once. → _the entire thesis_
-  [reddit.com/r/ecommerce — feels way heavier than it looks](https://www.reddit.com/r/ecommerce/comments/1tqdrhc/running_a_small_ecommerce_business_right_now/)
-
-- **Stockouts quietly cost real revenue, and merchants can't see it coming.** → _Low stock alert · Stockout imminent · Low stock reorder_
-  [reddit.com/r/shopify — Looking for inventory forecasting](https://www.reddit.com/r/shopify/comments/1uin6px/looking_for_inventory_forecasting_for_shopify/) · [reddit.com/r/shopify — lost sales from out-of-stock](https://www.reddit.com/r/shopify/comments/17ufqv3/how_to_see_lost_sales_potential_due_to_out_of/)
-
+- **Stockouts quietly cost real revenue, and merchants can't see it coming** → _Low stock alert · Stockout imminent · Low stock reorder_
+  [reddit.com/r/shopify — inventory forecasting](https://www.reddit.com/r/shopify/comments/1uin6px/looking_for_inventory_forecasting_for_shopify/) · [reddit.com/r/shopify — lost sales from out-of-stock](https://www.reddit.com/r/shopify/comments/17ufqv3/how_to_see_lost_sales_potential_due_to_out_of/)
 - **"Sales just… stopped. I'm struggling to figure out why."** — r/smallbusiness. The no-pulse problem: something changed and the owner found out too late. → _Weekly P&L summary · Negative margin alert_
   [reddit.com/r/smallbusiness — Sales just stopped](https://www.reddit.com/r/smallbusiness/comments/1cczx8y/sales_just_stopped_im_struggling_to_figure_out_why/)
 
-_Communities the pains were drawn from: **r/ecommerce, r/shopify, r/smallbusiness, r/AmazonSeller, r/FulfillmentByAmazon**. The threads above are representative anchors, not one per workflow — the same recurring complaints (dead stock, WISMO floods, abandoned carts, lapsed VIPs, over-mailing) surface across these subs constantly._
+_Communities the pains were drawn from: **r/ecommerce, r/shopify, r/smallbusiness, r/SaaS, r/AmazonSeller, r/FulfillmentByAmazon**. These are representative anchors, not one per workflow — the same recurring complaints (dead stock, WISMO floods, abandoned carts, lapsed VIPs, over-mailing) surface across these subs constantly._
 
 ---
 
