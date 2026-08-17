@@ -20,7 +20,7 @@ This document is the full inventory. Everything listed here exists in the codeba
 
 ---
 
-## How to read the levels — and how to check them
+## How to read the levels
 
 Every tool is rated on **depth**: how much real work sits behind it.
 
@@ -31,31 +31,6 @@ Every tool is rated on **depth**: how much real work sits behind it.
 | 🔴 **High** | Reasons, diagnoses, forecasts, or orchestrates. | `tenpo_diagnose` — 9 queries across 5 tables to find *why* |
 
 **Counts: 144 Basic · 102 Mid · 38 High**
-
-### How each rating was produced
-
-A rating you can't check is worth nothing, so here is the exact method.
-
-Each tool got rated by **two independent signals**, and takes the deeper of the two:
-
-1. **What it claims to do** — its own description, keyword-matched against a depth rubric. High needs words like *diagnose, forecast, root cause, causal, elasticity, optimise, correlate, cross-system, ranked by $ impact, predict, simulate*. Mid needs *analyse, segment, derive, compare, draft, execute, calculate, audit, triage, reconcile, classify*. Everything else is Basic.
-2. **What its implementation shows** — measured from source: lines of code in the handler, number of `SELECT` statements, distinct tables touched, parameter count. Those four numbers are printed in the **Evidence** column of every row, so you can disagree with any single rating and see exactly what it was based on.
-
-### What this method gets wrong (read this before trusting a row)
-
-Being straight about the limits, because they're real:
-
-- **Thin tools over deep engines score low.** Most tools are a wrapper that calls a module. Measuring the wrapper measures wrapper thickness, not capability. `tenpo_customer_intelligence` is 234 lines with zero SQL because the work is one import away.
-- **Parameter count is surface area, not depth.** `tenpo_generate_pdf` scored top-tier on the raw metric almost entirely because it takes 21 parameters.
-- **Keyword rubrics over-fire.** A description that happens to say "scores" isn't necessarily doing anything deep.
-
-Where both signals were wrong, the rating is set by hand and **marked with an asterisk (\*)** — 11 tools. They are the ones where the depth is real but invisible to both signals: `tenpo_think`, `tenpo_run_intelligence`, `tenpo_customer_intelligence`, `tenpo_inventory_intelligence`, `tenpo_network_intelligence`, `tenpo_finance_brain`, `tenpo_three_priorities`, `tenpo_seasonal_twin`, `tenpo_replenishment_engine`, `tenpo_contribution_margin`, `tenpo_pricing_optimizer` — plus a handful corrected *downward* (`tenpo_generate_pdf`, `tenpo_action_ledger`, `tenpo_can_help_with`).
-
-### One more honest note
-
-**25 of the 284 are manifest declarations without an inline handler** — advertised to host agents, with the implementation resolved at runtime rather than defined alongside the declaration. Their Evidence column says so instead of showing numbers. They are counted in the 284 because they are exposed as callable tools; they are flagged because "advertised" and "reachable" are not the same thing, and this codebase has a regression test (`tool-reachability.test.ts`) written against precisely that gap.
-
----
 
 ## What a merchant actually gets
 
@@ -187,7 +162,7 @@ Grouped by what they're for. `Level` is per-tool.
 
 | Tool | Depth | What it does | Evidence |
 |---|---|---|---|
-| `tenpo_can_help_with` | 🟢 Basic* | MERCHANT-FACING capability map: 9 categories grouped Core (cross-system intel, operator math, diagnostics, execution) / Data (inventory god-mode, customer intelligence god-mode, creative… | manifest declaration — handler not inline |
+| `tenpo_can_help_with` | 🟢 Basic | MERCHANT-FACING capability map: 9 categories grouped Core (cross-system intel, operator math, diagnostics, execution) / Data (inventory god-mode, customer intelligence god-mode, creative… | manifest declaration — handler not inline |
 | `tenpo_capabilities` | 🟡 Mid | Returns what Tenpo can do for this merchant. | 391 loc · 1 SELECT · 7 tables · 2 params |
 | `tenpo_classify_intent` | 🟡 Mid | INTENT CLASSIFIER — classifies a merchant query into one of Tenpo's intents (connect / investigate / create / launch / pause / discover / memory / onboard / strategy / global_signal /… | 14 loc · 0 SELECT · 1 tables · 2 params |
 | `tenpo_deeper_insights` | 🟡 Mid | Get ADDITIONAL insights beyond what tenpo_run_intelligence already showed. | 122 loc · 0 SELECT · 3 tables · 3 params |
@@ -225,8 +200,8 @@ Grouped by what they're for. `Level` is per-tool.
 | `tenpo_low_stock` | 🟢 Basic | Products with low or zero stock, sorted by urgency — product names, current quantity, daily velocity, days of stock remaining. | 64 loc · 0 SELECT · 0 tables · 1 params |
 | `tenpo_oversell_ledger` | 🟡 Mid | READ-ONLY audit trail of cross-channel oversell exceptions and how Tenpo resolved them. Lists recent detections — which SKU was oversold, on which channel an order was CANCELLED vs… | 61 loc · 0 SELECT · 0 tables · 5 params |
 | `tenpo_receive_inventory` | 🔴 High | Mark a Purchase Order as received — fully or partially. Records received quantities, damaged items, updates PO status and stock levels. | 424 loc · 8 SELECT · 9 tables · 6 params |
-| `tenpo_replenishment_engine` | 🔴 High* | Identify products with natural repurchase cycles and generate proactive replenishment reminder campaigns. Analyzes average days between repeat purchases per product, classifies… | 333 loc · 4 SELECT · 7 tables · 2 params |
-| `tenpo_seasonal_twin` | 🔴 High* | Reads the merchant's own order ledger to compare the current calendar window against the SAME window one year ago, per product: units sold last year, units so far this year, the… | 77 loc · 0 SELECT · 1 tables · 3 params |
+| `tenpo_replenishment_engine` | 🔴 High | Identify products with natural repurchase cycles and generate proactive replenishment reminder campaigns. Analyzes average days between repeat purchases per product, classifies… | 333 loc · 4 SELECT · 7 tables · 2 params |
+| `tenpo_seasonal_twin` | 🔴 High | Reads the merchant's own order ledger to compare the current calendar window against the SAME window one year ago, per product: units sold last year, units so far this year, the… | 77 loc · 0 SELECT · 1 tables · 3 params |
 
 ### Suppliers & Purchasing  
 *21 tools*
@@ -261,16 +236,16 @@ Grouped by what they're for. `Level` is per-tool.
 | Tool | Depth | What it does | Evidence |
 |---|---|---|---|
 | `tenpo_billing_status` | 🟢 Basic | Returns current tier, daily call usage, calls remaining, upgrade URL, billing portal URL, available plans. Surface to merchant when they hit limits or ask about plans. | manifest declaration — handler not inline |
-| `tenpo_contribution_margin` | 🔴 High* | Get TRUE contribution margin broken down PER SALES CHANNEL (shopify/amazon/tiktok_shop/…) and PER PRODUCT/SKU — the per-dimension profitability a single 'store finance' number can't… | 65 loc · 0 SELECT · 1 tables · 3 params |
+| `tenpo_contribution_margin` | 🔴 High | Get TRUE contribution margin broken down PER SALES CHANNEL (shopify/amazon/tiktok_shop/…) and PER PRODUCT/SKU — the per-dimension profitability a single 'store finance' number can't… | 65 loc · 0 SELECT · 1 tables · 3 params |
 | `tenpo_create_budget_rule` | 🟡 Mid | Create an automated budget rule for ad campaigns. Templates. | 242 loc · 1 SELECT · 0 tables · 16 params |
-| `tenpo_finance_brain` | 🔴 High* | THE finance brain — one call that knows EVERYTHING about the store's money and tells the merchant exactly what to do about it. | 87 loc · 0 SELECT · 0 tables · 3 params |
-| `tenpo_generate_invoice` | 🟡 Mid* | Generate a branded invoice from a SAVED invoice template and a REAL order, then return a download link. | 195 loc · 5 SELECT · 6 tables · 9 params |
+| `tenpo_finance_brain` | 🔴 High | THE finance brain — one call that knows EVERYTHING about the store's money and tells the merchant exactly what to do about it. | 87 loc · 0 SELECT · 0 tables · 3 params |
+| `tenpo_generate_invoice` | 🟡 Mid | Generate a branded invoice from a SAVED invoice template and a REAL order, then return a download link. | 195 loc · 5 SELECT · 6 tables · 9 params |
 | `tenpo_import_product_costs` | 🟡 Mid | Bulk-set product COGS from a CSV/TSV that has a SKU column and a cost column (cost / unit_cost / cogs / cost_price). | 407 loc · 2 SELECT · 3 tables · 7 params |
 | `tenpo_ltv_cac` | 🟢 Basic | Core DTC unit economics: 12-month customer LTV, blended CAC (last 30d), LTV:CAC ratio (target >3:1), payback period in months, and revenue per cohort. | 19 loc · 0 SELECT · 0 tables · 0 params |
 | `tenpo_mark_paid` | 🟡 Mid | Record a payment against a Purchase Order — full or partial amount. Updates payment status, logs the transaction. | 175 loc · 3 SELECT · 3 tables · 6 params |
 | `tenpo_nexus_check` | 🟢 Basic | Groups orders by ship-to state/country and flags every jurisdiction where the merchant has crossed an economic-nexus threshold (US states + EU). Surfaces where they may already owe… | 12 loc · 0 SELECT · 0 tables · 0 params |
 | `tenpo_payout_monitor` | 🔴 High | Detects delayed or held Shopify Payments payouts (transfers running >7d behind expected). Payment holds are an existential cash-flow event for a small merchant, so this checks the… | 12 loc · 0 SELECT · 0 tables · 0 params |
-| `tenpo_pricing_optimizer` | 🔴 High* | Analyze product pricing against velocity and margin to find opportunities: underpriced fast-movers (raise price), dead stock (discount), and stable products. | 105 loc · 0 SELECT · 1 tables · 3 params |
+| `tenpo_pricing_optimizer` | 🔴 High | Analyze product pricing against velocity and margin to find opportunities: underpriced fast-movers (raise price), dead stock (discount), and stable products. | 105 loc · 0 SELECT · 1 tables · 3 params |
 | `tenpo_quickbooks_invoice` | 🟢 Basic | Create an invoice in QuickBooks Online. | 123 loc · 0 SELECT · 0 tables · 12 params |
 | `tenpo_quickbooks_payment` | 🟢 Basic | Record a payment against an existing QuickBooks invoice. | 105 loc · 0 SELECT · 0 tables · 7 params |
 | `tenpo_receipts` | 🔴 High | The merchant's SETTLED-OUTCOMES RECEIPTS: every approved/fired action whose effect has been MEASURED — what the action was, when it was approved, the measured $ effect, the causal… | 47 loc · 0 SELECT · 0 tables · 2 params |
@@ -384,7 +359,7 @@ Grouped by what they're for. `Level` is per-tool.
 
 | Tool | Depth | What it does | Evidence |
 |---|---|---|---|
-| `tenpo_amazon_listings_write` | 🟡 Mid* | Set an Amazon MFN (seller-fulfilled) listing's available quantity via SP-API Listings Items. IRREVERSIBLE (a live marketplace listing) → always requires a tenpo_approve approvalId. | 65 loc · 0 SELECT · 1 tables · 4 params |
+| `tenpo_amazon_listings_write` | 🟡 Mid | Set an Amazon MFN (seller-fulfilled) listing's available quantity via SP-API Listings Items. IRREVERSIBLE (a live marketplace listing) → always requires a tenpo_approve approvalId. | 65 loc · 0 SELECT · 1 tables · 4 params |
 | `tenpo_amazon_orders` | 🟢 Basic | Fetch recent Amazon Marketplace orders or get order details via the SP-API. | 83 loc · 0 SELECT · 0 tables · 5 params |
 | `tenpo_bigcommerce_admin` | 🟡 Mid | Direct BigCommerce Catalog / Orders API write actions. Supports: update_product (PUT /catalog/products/{id}), create_product (POST /catalog/products), set_inventory (PUT… | 266 loc · 0 SELECT · 1 tables · 17 params |
 | `tenpo_bigcommerce_graphql` | 🟢 Basic | Run a GraphQL query against the BigCommerce Admin GraphQL API. Pass `query` (the GQL string) and optional `variables` (JSON). | 106 loc · 0 SELECT · 1 tables · 5 params |
@@ -412,7 +387,7 @@ Grouped by what they're for. `Level` is per-tool.
 | `tenpo_market_pulse` | 🟡 Mid | Weekly category digest — what's hot, what's trending, what to do. Particl + own data. | manifest declaration — handler not inline |
 | `tenpo_market_research` | 🟡 Mid | Full market research pipeline for a product or niche — demand signals, trend stage, competition analysis, margin estimates → GO / CAUTIOUS / NO-GO verdict. | 167 loc · 0 SELECT · 1 tables · 3 params |
 | `tenpo_meta_ad_library` | 🟢 Basic | Meta Ad Library search — free with FB Graph token. | manifest declaration — handler not inline |
-| `tenpo_network_intelligence` | 🔴 High* | PRODUCTION-GRADE network telemetry — k-anonymous (k≥3) signals from across the network. overview = headline numbers; intents = top intents merchants asked + sample queries… | manifest declaration — handler not inline |
+| `tenpo_network_intelligence` | 🔴 High | PRODUCTION-GRADE network telemetry — k-anonymous (k≥3) signals from across the network. overview = headline numbers; intents = top intents merchants asked + sample queries… | manifest declaration — handler not inline |
 | `tenpo_particl_analyze_marketing` | 🟡 Mid | Optional Particl integration] Analyze a competitor brand or category. | 458 loc · 0 SELECT · 4 tables · 4 params |
 | `tenpo_particl_browse_products` | 🟢 Basic | Optional Particl integration] Browse competitor product catalogs. | 34 loc · 0 SELECT · 0 tables · 4 params |
 | `tenpo_particl_search_assets` | 🟢 Basic | Optional Particl integration] Find competitor creative assets. | 38 loc · 0 SELECT · 0 tables · 3 params |
@@ -446,7 +421,7 @@ Grouped by what they're for. `Level` is per-tool.
 
 | Tool | Depth | What it does | Evidence |
 |---|---|---|---|
-| `tenpo_action_ledger` | 🟡 Mid* | Review the AGENT ACTION LEDGER: every action the operator took (today: simulated writes against a would-land receptor), threaded end to end — action → the would-land record → the… | 57 loc · 0 SELECT · 1 tables · 3 params |
+| `tenpo_action_ledger` | 🟡 Mid | Review the AGENT ACTION LEDGER: every action the operator took (today: simulated writes against a would-land receptor), threaded end to end — action → the would-land record → the… | 57 loc · 0 SELECT · 1 tables · 3 params |
 | `tenpo_approve` | 🟡 Mid | Request merchant approval for a SPECIFIC, IRREVERSIBLE write action they have asked you to perform. Returns an approval ID. | 317 loc · 0 SELECT · 3 tables · 12 params |
 | `tenpo_autonomous_status` | 🟢 Basic | Returns Tenpo's autonomous-system state for THIS merchant: list of detectors that watch for incidents (revenue cliff, stock crash, refund spike, ROAS death, dead stock with ads, payment… | 47 loc · 0 SELECT · 0 tables · 1 params |
 | `tenpo_autonomy_policy` | 🟢 Basic | Get or set the merchant's autonomous-execution policy. action='get' returns the current policy; action='set' updates the provided fields. Fields: level… | 117 loc · 0 SELECT · 0 tables · 12 params |
@@ -490,7 +465,7 @@ Grouped by what they're for. `Level` is per-tool.
 |---|---|---|---|
 | `tenpo_chart` | 🔴 High | Generate a beautiful rendered chart image from a SQL query. ALWAYS use this tool instead of the canvas tool when the merchant asks for a chart, pie chart, bar chart, line chart, radar… | 506 loc · 9 SELECT · 11 tables · 6 params |
 | `tenpo_compare_table` | 🟢 Basic | Me vs N competitors comparison via Particl. Returns next_steps for parallel tool calls + output template. | manifest declaration — handler not inline |
-| `tenpo_generate_pdf` | 🟡 Mid* | DEPRECATED FOR PURCHASE ORDERS — use tenpo_generate_po instead for ALL purchase order creation. Do NOT use this tool when the inventory-ops skill is active or when generating a PO. | 561 loc · 3 SELECT · 7 tables · 21 params |
+| `tenpo_generate_pdf` | 🟡 Mid | DEPRECATED FOR PURCHASE ORDERS — use tenpo_generate_po instead for ALL purchase order creation. Do NOT use this tool when the inventory-ops skill is active or when generating a PO. | 561 loc · 3 SELECT · 7 tables · 21 params |
 | `tenpo_mermaid` | 🟢 Basic | SQL → Mermaid diagram (pie/bar/flowchart/timeline). Coding agents render Mermaid inline. | manifest declaration — handler not inline |
 | `tenpo_visualize` | 🟢 Basic | Turn the merchant's data (or a supplied data bag) into a PORTABLE render package the host draws itself: the best-fit viz (a board when the data is entities-with-state/actions, a KPI grid… | 78 loc · 0 SELECT · 0 tables · 5 params |
 
