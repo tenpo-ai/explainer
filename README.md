@@ -4,6 +4,8 @@
 
 ---
 
+> **📖 [WHAT-TENPO-CAN-DO.md](WHAT-TENPO-CAN-DO.md)** — the full capability inventory: all 284 tools, 239 skills, 22 workflows, 20 routines, 46 background loops, 56 integrations, and the psychology layer. Each rated Basic / Mid / High.
+
 ## The problem
 
 Running an e-commerce store is brutally complex. You sell across Shopify, Amazon, and TikTok. You run a dozen apps for ads, email, reviews, support, shipping, and analytics, and none of them talk to each other. So the owner ends up stitching data across ten tabs at 11pm, doing work they never signed up for.
